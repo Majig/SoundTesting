@@ -7,9 +7,35 @@
 </head>
 
 <body>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <script src="js/soundAndMusic.js"></script>
     <script>
-        var someSound = new Audio("../gameAudio-effects/bloop.wav");
-        someSound.play();
+        var canvas, canvasContext;
+        var longerSound = new soundOverlapsClass("sound/longer");
+        var shorterSound = new soundOverlapsClass("sound/bloop");
+        var backgroundMusic = new backgroundMusicClass();
+
+        function mouseupHandler() {
+            // longerSound.play();
+            backgroundMusic.startOrStopMusic();
+        }
+
+        function keypressHandler(e) {
+            // shorterSound.play();
+            backgroundMusic.loopSong("sound/bgMusic");
+            e.preventDefault();
+        }
+
+        window.onload = function () {
+            canvas = document.getElementById("gameCanvas");
+            canvasContext = canvas.getContext("2d");
+
+            canvas.addEventListener("mouseup", mouseupHandler);
+            document.addEventListener("keydown", keypressHandler);
+
+            canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+            backgroundMusic.loopSong("sound/longer");
+        }
     </script>
 </body>
 
